@@ -1,0 +1,498 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.wrap {
+  padding: 1.75rem 1.5rem 1.5rem;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+
+.soc-name {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: var(--color-text-primary);
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.soc-sub {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.fb {
+  padding: 6px 12px;
+  background: transparent;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 99px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-sans);
+}
+.fb:hover { background: var(--color-background-secondary); }
+.fb.active {
+  border-color: var(--color-border-primary);
+  color: var(--color-text-primary);
+  background: var(--color-background-secondary);
+}
+
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem 1.75rem 1.5rem;
+  margin-bottom: 1rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.genre-tag {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: 1rem;
+}
+
+.sentence-orig {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  font-style: italic;
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
+
+.sentence-tr {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: 1.25rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--color-border-tertiary);
+  display: none;
+}
+
+.tr-loading {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.author { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.source { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.num { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--color-background-secondary); }
+.btn:active { transform: scale(0.98); }
+.btn.sm { flex: 0 0 auto; padding: 10px 12px; }
+
+.tr-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.tr-btn {
+  flex: 1;
+  padding: 8px 10px;
+  background: transparent;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.tr-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+.tr-btn.active { border-color: var(--color-border-primary); color: var(--color-text-primary); background: var(--color-background-secondary); }
+
+.vote-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.vote-btn {
+  padding: 8px 16px;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  cursor: default;
+  font-family: var(--font-sans);
+  opacity: 0.6;
+  position: relative;
+}
+
+.coming-soon {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  display: block;
+  margin-top: 1px;
+}
+
+.share-btn {
+  padding: 8px 14px;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  margin-left: auto;
+  transition: all 0.15s;
+}
+.share-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+
+.share-menu {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.share-menu.open { display: block; }
+
+.share-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.share-opt {
+  padding: 8px 12px;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.share-opt:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+
+.share-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  padding: 0 4px;
+  margin-bottom: 8px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 10px 18px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 100;
+}
+.toast.show { opacity: 1; }
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <div class="soc-name">Société de la Sentence</div>
+    <div class="soc-sub">et du Peu — depuis l'antiquité</div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="fb active" data-f="all">Tous</button>
+    <button class="fb" data-f="Pascal">Pascal</button>
+    <button class="fb" data-f="La Rochefoucauld">La Rochefoucauld</button>
+    <button class="fb" data-f="Chamfort">Chamfort</button>
+    <button class="fb" data-f="Vauvenargues">Vauvenargues</button>
+    <button class="fb" data-f="Joubert">Joubert</button>
+    <button class="fb" data-f="Catón">Catón</button>
+  </div>
+
+  <div class="card" id="card">
+    <div class="genre-tag" id="genre-tag">maxime</div>
+    <div class="sentence-orig" id="sentence-orig">…</div>
+    <div class="sentence-tr" id="sentence-tr"></div>
+    <div class="meta">
+      <div>
+        <div class="author" id="author-name"></div>
+        <div class="source" id="source-name"></div>
+      </div>
+      <div class="num" id="num-badge"></div>
+    </div>
+  </div>
+
+  <div class="tr-row">
+    <button class="tr-btn" id="btn-es" onclick="translate('es')">→ español</button>
+    <button class="tr-btn" id="btn-en" onclick="translate('en')">→ english</button>
+    <button class="tr-btn" id="btn-orig" onclick="hideTranslation()" style="flex:0.4">original</button>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="nextOne()">siguiente →</button>
+    <button class="btn sm" onclick="randomOne()" title="al azar">⚄</button>
+    <button class="share-btn" onclick="toggleShare()"><i class="ti ti-share" aria-hidden="true"></i> partager</button>
+  </div>
+
+  <div class="share-menu" id="share-menu">
+    <div class="share-label">partager la sagesse</div>
+    <div class="share-grid">
+      <button class="share-opt" onclick="shareTo('copy')"><i class="ti ti-copy" style="font-size:15px" aria-hidden="true"></i> Copiar texto</button>
+      <button class="share-opt" onclick="shareTo('whatsapp')"><i class="ti ti-brand-whatsapp" style="font-size:15px" aria-hidden="true"></i> WhatsApp</button>
+      <button class="share-opt" onclick="shareTo('twitter')"><i class="ti ti-brand-x" style="font-size:15px" aria-hidden="true"></i> X / Twitter</button>
+      <button class="share-opt" onclick="shareTo('telegram')"><i class="ti ti-brand-telegram" style="font-size:15px" aria-hidden="true"></i> Telegram</button>
+    </div>
+  </div>
+
+  <div class="vote-row">
+    <button class="vote-btn">▲ voter<span class="coming-soon">bientôt</span></button>
+    <button class="vote-btn">▼<span class="coming-soon">bientôt</span></button>
+    <button class="vote-btn" style="margin-left:auto">⊞ ranking<span class="coming-soon">bientôt</span></button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const corpus = [
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Le cœur a ses raisons que la raison ne connaît point." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Tout le malheur des hommes vient d'une seule chose, qui est de ne savoir pas demeurer en repos dans une chambre." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"L'homme n'est qu'un roseau, le plus faible de la nature ; mais c'est un roseau pensant." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Le silence éternel de ces espaces infinis m'effraie." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Nous connaissons la vérité non seulement par la raison, mais encore par le cœur." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Le nez de Cléopâtre : s'il eût été plus court, toute la face de la terre aurait changé." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"Se moquer de la philosophie, c'est vraiment philosopher." },
+  { author:"Pascal", source:"Pensées", genre:"pensée", lang:"fr", text:"L'éloquence est une peinture de la pensée." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"L'amour-propre est le plus grand flatteur du monde." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Nos vertus ne sont le plus souvent que des vices déguisés." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Le soleil ni la mort ne se peuvent regarder fixement." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Il y a de bons mariages, mais il n'y en a point de délicieux." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Les vieillards aiment à donner de bons préceptes pour se consoler de n'être plus en état de donner de mauvais exemples." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"L'hypocrisie est un hommage que le vice rend à la vertu." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Dans l'adversité de nos meilleurs amis, nous trouvons toujours quelque chose qui ne nous déplaît pas." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"Nous avons tous assez de force pour supporter les maux d'autrui." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"La vérité ne fait pas autant de bien dans le monde que ses apparences y font de mal." },
+  { author:"La Rochefoucauld", source:"Maximes", genre:"maxime", lang:"fr", text:"On n'est jamais si heureux ni si malheureux qu'on s'imagine." },
+  { author:"Chamfort", source:"Maximes et pensées", genre:"maxime", lang:"fr", text:"La plus perdue de toutes les journées est celle où l'on n'a pas ri." },
+  { author:"Chamfort", source:"Maximes et pensées", genre:"maxime", lang:"fr", text:"L'amour, tel qu'il existe dans la société, n'est que l'échange de deux fantaisies et le contact de deux épidermes." },
+  { author:"Chamfort", source:"Maximes et pensées", genre:"maxime", lang:"fr", text:"Jouis et fais jouir, sans faire de mal ni à toi ni à personne : voilà, je crois, toute la morale." },
+  { author:"Chamfort", source:"Maximes et pensées", genre:"maxime", lang:"fr", text:"Il faut choisir d'aimer les femmes ou de les connaître ; il n'y a pas de milieu." },
+  { author:"Vauvenargues", source:"Réflexions et maximes", genre:"réflexion", lang:"fr", text:"Les grandes pensées viennent du cœur." },
+  { author:"Vauvenargues", source:"Réflexions et maximes", genre:"réflexion", lang:"fr", text:"La patience est l'art d'espérer." },
+  { author:"Vauvenargues", source:"Réflexions et maximes", genre:"réflexion", lang:"fr", text:"Pour exécuter de grandes choses, il faut vivre comme si on ne devait jamais mourir." },
+  { author:"Vauvenargues", source:"Réflexions et maximes", genre:"réflexion", lang:"fr", text:"Les conseils de la vieillesse éclairent sans réchauffer, comme le soleil d'hiver." },
+  { author:"Joubert", source:"Carnets", genre:"pensée", lang:"fr", text:"La clarté est la politesse de l'écrivain." },
+  { author:"Joubert", source:"Carnets", genre:"pensée", lang:"fr", text:"Enseigner, c'est apprendre deux fois." },
+  { author:"Joubert", source:"Carnets", genre:"pensée", lang:"fr", text:"Il faut que les mots soient des fenêtres ou des murs." },
+  { author:"Joubert", source:"Carnets", genre:"pensée", lang:"fr", text:"Ce n'est pas assez d'être vrai, il faut être complet." },
+  { author:"Catón", source:"Dicta Catonis", genre:"dístico", lang:"la", text:"Cum recte vivas, ne cures verba malorum." },
+  { author:"Catón", source:"Dicta Catonis", genre:"dístico", lang:"la", text:"Noli homines blando nimium sermone probare." },
+  { author:"Catón", source:"Dicta Catonis", genre:"dístico", lang:"la", text:"Quod potes id tempta ; operibus ne crede superbis." },
+  { author:"Catón", source:"Dicta Catonis", genre:"dístico", lang:"la", text:"Virtutem primam esse puta compescere linguam." },
+];
+
+let pool = [...corpus];
+let idx = 0;
+let currentFilter = 'all';
+let currentEntry = null;
+let currentLang = null;
+let translationCache = {};
+
+function getPool() {
+  if (currentFilter === 'all') return corpus;
+  return corpus.filter(a => a.author === currentFilter);
+}
+
+function show(entry) {
+  currentEntry = entry;
+  currentLang = null;
+  document.getElementById('sentence-orig').textContent = '\u00AB\u00A0' + entry.text + '\u00A0\u00BB';
+  document.getElementById('genre-tag').textContent = entry.genre;
+  document.getElementById('author-name').textContent = entry.author;
+  document.getElementById('source-name').textContent = entry.source;
+  const p = getPool();
+  document.getElementById('num-badge').textContent = (idx + 1) + ' / ' + p.length;
+  const tr = document.getElementById('sentence-tr');
+  tr.style.display = 'none';
+  tr.textContent = '';
+  document.querySelectorAll('.tr-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('share-menu').classList.remove('open');
+}
+
+function nextOne() {
+  const p = getPool();
+  idx = (idx + 1) % p.length;
+  show(p[idx]);
+}
+
+function randomOne() {
+  const p = getPool();
+  idx = Math.floor(Math.random() * p.length);
+  show(p[idx]);
+}
+
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('[data-f]');
+  if (!btn) return;
+  currentFilter = btn.dataset.f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  idx = 0;
+  show(getPool()[0]);
+});
+
+async function translate(lang) {
+  if (!currentEntry) return;
+  document.querySelectorAll('.tr-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+
+  const cacheKey = currentEntry.text + '|' + lang;
+  const tr = document.getElementById('sentence-tr');
+  tr.style.display = 'block';
+
+  if (translationCache[cacheKey]) {
+    tr.textContent = translationCache[cacheKey];
+    return;
+  }
+
+  tr.innerHTML = '<span class="tr-loading">traduciendo…</span>';
+  const langName = lang === 'es' ? 'Spanish' : 'English';
+  const srcLang = currentEntry.lang === 'la' ? 'Latin' : 'French';
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 300,
+        messages: [{
+          role: 'user',
+          content: `Translate this ${srcLang} aphorism into ${langName}. Return ONLY the translation, no explanation, no quotes, no preamble.\n\n${currentEntry.text}`
+        }]
+      })
+    });
+    const data = await resp.json();
+    const result = data.content.map(b => b.text || '').join('').trim();
+    translationCache[cacheKey] = result;
+    tr.textContent = result;
+  } catch(e) {
+    tr.textContent = '(error de traducción)';
+  }
+}
+
+function hideTranslation() {
+  document.getElementById('sentence-tr').style.display = 'none';
+  document.querySelectorAll('.tr-btn').forEach(b => b.classList.remove('active'));
+}
+
+function toggleShare() {
+  document.getElementById('share-menu').classList.toggle('open');
+}
+
+function getShareText() {
+  if (!currentEntry) return '';
+  const tr = document.getElementById('sentence-tr');
+  const hasTr = tr.style.display !== 'none' && tr.textContent;
+  let text = '«\u00A0' + currentEntry.text + '\u00A0»';
+  if (hasTr) text += '\n\n' + tr.textContent;
+  text += '\n\n— ' + currentEntry.author + ', ' + currentEntry.source;
+  text += '\n\nSociété de la Sentence et du Peu';
+  return text;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function shareTo(target) {
+  const text = getShareText();
+  const enc = encodeURIComponent(text);
+  if (target === 'copy') {
+    navigator.clipboard.writeText(text).then(() => showToast('copiado al portapapeles'));
+  } else if (target === 'whatsapp') {
+    window.open('https://wa.me/?text=' + enc);
+  } else if (target === 'twitter') {
+    const short = text.length > 240 ? text.slice(0, 237) + '…' : text;
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(short));
+  } else if (target === 'telegram') {
+    window.open('https://t.me/share/url?text=' + enc);
+  }
+  document.getElementById('share-menu').classList.remove('open');
+}
+
+show(corpus[Math.floor(Math.random() * corpus.length)]);
+</script>
